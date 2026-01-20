@@ -51,13 +51,25 @@
             </div>
         </header>
 
+        <!-- Fixed Filter Button (Outside main content, always visible) -->
+        <div id="filterButtonContainer" class="fixed top-6 left-6 z-50">
+            <button id="filterToggleBtn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 active:bg-emerald-800 transition-all duration-200 flex items-center space-x-2 shadow-md hover:shadow-lg">
+                <span class="hamburger-icon" id="hamburgerIcon">
+                    <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </span>
+                <span id="filterBtnText">Filters</span>
+            </button>
+        </div>
+
         <!-- Main Content -->
         <div class="pt-28 sm:pt-32 md:pt-36 lg:pt-40">
             <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
                 <div class="flex gap-4 lg:gap-6">
-                    <!-- Filters Sidebar -->
-                    <div class="w-64">
-                        <div class="sticky top-24 space-y-4">
+                    <!-- Filters Sidebar (Hidden by default, toggled with filter button) -->
+                    <div id="filtersSidebar" class="sidebar-mobile hidden fixed inset-y-0 left-0 z-40 w-full max-w-xs bg-white overflow-y-auto pt-20 shadow-xl transition-transform duration-300 ease-in-out">
+                        <div class="sticky top-24 space-y-4 px-4 lg:px-0 py-4 lg:py-0 lg:space-y-4 lg:top-24">
                             <!-- Categories -->
                             <div class="bg-gray-50 rounded-lg p-4">
                                 <h3 class="font-bold text-lg mb-3 text-gray-800">Categories</h3>
@@ -95,10 +107,19 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Close Button for Mobile -->
+                        <div class="lg:hidden border-t mt-6 pt-4 px-4 pb-4">
+                            <button id="filterCloseBtn" class="w-full bg-emerald-600 text-white py-2.5 rounded-lg hover:bg-emerald-700 transition-colors font-semibold flex items-center justify-center space-x-2">
+                                <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                <span>Close Filters</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Products Grid -->
-                    <main class="flex-1 min-w-0">
+                    <main class="flex-1 min-w-0 w-full lg:flex-1 transition-opacity duration-300" id="productsMain">
                         <div id="productCountDiv" class="mb-3 sm:mb-4 text-sm sm:text-base text-gray-600">
                             Found 0 products
                         </div>
@@ -382,7 +403,7 @@
 
         <!-- Shopping Cart Sidebar -->
         <div id="cartSidebar" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-            <div class="absolute right-0 top-0 h-full w-full sm:w-96 md:w-[28rem] bg-white shadow-2xl overflow-y-auto transition-transform duration-300">
+            <div class="absolute right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl overflow-y-auto transition-transform duration-300">
                 <div class="p-4 sm:p-6">
                     <div class="flex justify-between items-center mb-4 sm:mb-6">
                         <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Shopping Cart</h2>
